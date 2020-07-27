@@ -1,0 +1,49 @@
+server:
+  port: ${custome_port:8091}
+
+spring:
+  application:
+    name: ${app_name:AuthService}
+
+  rabbitmq:
+    host: ${rabbitmq_host:localhost}
+    port: ${rabbitmq_port:5672}
+    username: ${rabbitmq_user:guest}
+    password: ${rabbitmq_pass:guest}
+  cloud:
+    bus:
+      enabled: ${cloud_bus:true}
+      refresh:
+         enabled: ${cloud_bus_refresh:true}
+      id: ${spring.application.name}:${spring.profiles.active}:${random.uuid}
+
+  session:
+    store-type: ${session_store_type:redis}
+    timeout: ${session_timeout:5m}
+    redis:
+      save-mode: ${redis_save_mode:always}
+      flush-mode: ${redis_flush_mode:immediate}
+
+  redis:
+    host: ${redis_host}
+    port: ${redis_port}
+    password: ${redis_password}
+
+  data:
+    mongodb:
+      uri: ${mongodb_uri}
+
+eureka:
+  client:
+    registerWithEureka: ${registerWithEureka:true}
+    fetchRegistry: ${fetchRegistry:true}
+    service-url:
+      defaultZone:  ${eureka_url:http://localhost:8761/eureka/}
+
+  instance:
+    hostname: ${HOSTNAME:${spring.application.name}}
+    preferIpAddress: ${preferIpAddress:false}
+    instanceId: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}:${server.port}
+
+
+
